@@ -1,0 +1,28 @@
+{
+  "name": "ts-template",
+  "version": "1.0.0",
+  "description": "typescript project starter with normalize.css and parcel",
+  "private": "true",
+  "homepage": "https://mykolao.github.io/ts-template",
+  "browserslist": "> 0.5%, last 2 versions, not dead",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf .cache dist",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
+    "prestart": "yarn clean",
+    "start": "parcel serve src/public/index.html -p 2222 --open chrome",
+    "prebuild": "yarn clean",
+    "build": "parcel build src/public/index.html --public-url ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@csstools/normalize.css": "^12.0.0"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.1.1",
+    "gh-pages": "^3.2.3",
+    "parcel": "^2.1.1"
+  }
+}

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,MAAM,CAAC;EACL,KAAK,EAAE,KAAK;EACZ,SAAS,EAAE,IAAI;EACf,cAAc,EAAE,IAAI;CACrB",
+    "sources": [
+        "../src/components/Title/title.scss"
+    ],
+    "names": [],
+    "file": "title.css"
+}
