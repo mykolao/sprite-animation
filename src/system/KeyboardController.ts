@@ -1,5 +1,6 @@
+type Key = "UP" | "DOWN" | "LEFT" | "RIGHT" | "OTHER"
 interface KeyList {
-  [index: string]: string;
+  [index: string]: Key;
 }
 
 export default class KeyboardController {
@@ -15,10 +16,10 @@ export default class KeyboardController {
   };
 
   element = document.createElement("div");
-  onControll!: (e: string) => any;
+  onControll!: (e: Key) => any;
 
   private keyDownHandler = (e: KeyboardEvent): void => {
-    this.onControll(this.keys[e.code] || "");
+    this.onControll(this.keys[e.code] || "OTHER");
   };
 
   constructor() {
