@@ -1,41 +1,64 @@
-import idleSpriteImg from "./sprites/idle.png";
-import KeyboardController from "./system/KeyboardController";
+import skeletonImgSrc from "./sprites/skeleton.png";
+import SpriteSheet from "./system/SpriteSheet";
 
-const controller = new KeyboardController();
-controller.onControll = (e: string) => {
-  // console.log("Event Listened", e);
-};
-
-// controller.onControll(() => {
-//   console.log("Keyboard Event!");
-// });
-// controller.onControll((ev) => {})
-// const spriteSize = {
-//   w: 119,
-//   h: 124,
+// import KeyboardController from "./system/KeyboardController";
+// const controller = new KeyboardController();
+// controller.onControll = (e: string) => {
+//   // console.log("Event Listened", e);
 // };
+const skeletonImage = document.createElement("img");
+skeletonImage.src = skeletonImgSrc;
 
-// const canvasScale = 5;
+skeletonImage.addEventListener("load", (ev) => {
+  const skeletonSpriteSheet = new SpriteSheet(skeletonImage, {
+    size: {
+      w: 64,
+      h: 64,
+    },
+    stateList: {
+      attack: {
+        name: "attack",
+        index: 0,
+        numOfFrames: 13,
+      },
+      idle: {
+        name: "idle",
+        index: 3,
+        numOfFrames: 4,
+      },
+    },
+    initialState: "idle",
+  });
 
-// const canvasSize = {
-//   w: spriteSize.w * canvasScale,
-//   h: spriteSize.h * canvasScale,
-// };
+  const canvas = document.createElement("canvas");
+  const ctx = canvas.getContext(
+    "2d"
+  ) as CanvasRenderingContext2D;
+  // ctx.imageSmoothingEnabled = false;
+  canvas.width = 64;
+  canvas.height = 64;
 
-// const canvas = document.createElement("canvas");
-// canvas.width = canvasSize.w;
-// canvas.height = canvasSize.h;
-// const ctx = canvas.getContext("2d");
-// ctx && (ctx.imageSmoothingEnabled = false);
+  const root = document.querySelector(".root") as HTMLElement;
+  root.appendChild(canvas);
 
-// const idleSpriteSheet = document.createElement("img");
-// idleSpriteSheet.src = idleSpriteImg;
+  const renderSprite = () => {
+    ctx.clearRect(0, 0, 64, 64);
+    ctx.drawImage(skeletonSpriteSheet.nextFrame(), 0, 0);
+  };
 
-// const root =
-//   document.querySelector(".root") ||
-//   document.createElement("div");
+  let previousTs = 0;
+  const gameLoop = (ts: number) => {
+    if (ts - previousTs > 100) {
+      renderSprite();
+      previousTs = ts;
+    }
 
-// root.appendChild(canvas);
+    window.requestAnimationFrame(gameLoop);
+  };
+
+  skeletonSpriteSheet.currentState = "attack";
+  gameLoop(previousTs);
+});
 
 // const renderSprite = (frame: number) => {
 //   ctx?.clearRect(0, 0, canvasSize.w, canvasSize.h);
