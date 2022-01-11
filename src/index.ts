@@ -1,61 +1,71 @@
 import idleSpriteImg from "./sprites/idle.png";
+import KeyboardController from "./system/KeyboardController";
 
-const spriteSize = {
-  w: 119,
-  h: 124,
+const controller = new KeyboardController();
+controller.onControll = (e: string) => {
+  console.log("Event Listened", e);
 };
 
-const canvasScale = 5;
+// controller.onControll(() => {
+//   console.log("Keyboard Event!");
+// });
+// controller.onControll((ev) => {})
+// const spriteSize = {
+//   w: 119,
+//   h: 124,
+// };
 
-const canvasSize = {
-  w: spriteSize.w * canvasScale,
-  h: spriteSize.h * canvasScale,
-};
+// const canvasScale = 5;
 
-const canvas = document.createElement("canvas");
-canvas.width = canvasSize.w;
-canvas.height = canvasSize.h;
-const ctx = canvas.getContext("2d");
-ctx && (ctx.imageSmoothingEnabled = false);
+// const canvasSize = {
+//   w: spriteSize.w * canvasScale,
+//   h: spriteSize.h * canvasScale,
+// };
 
-const idleSpriteSheet = document.createElement("img");
-idleSpriteSheet.src = idleSpriteImg;
+// const canvas = document.createElement("canvas");
+// canvas.width = canvasSize.w;
+// canvas.height = canvasSize.h;
+// const ctx = canvas.getContext("2d");
+// ctx && (ctx.imageSmoothingEnabled = false);
 
-const root =
-  document.querySelector(".root") ||
-  document.createElement("div");
+// const idleSpriteSheet = document.createElement("img");
+// idleSpriteSheet.src = idleSpriteImg;
 
-root.appendChild(canvas);
+// const root =
+//   document.querySelector(".root") ||
+//   document.createElement("div");
 
-const renderSprite = (frame: number) => {
-  ctx?.clearRect(0, 0, canvasSize.w, canvasSize.h);
-  ctx?.drawImage(
-    idleSpriteSheet,
-    0,
-    frame * spriteSize.h,
-    spriteSize.w,
-    spriteSize.h,
-    0,
-    0,
-    canvasSize.w,
-    canvasSize.h
-  );
-};
-let currentFrame = 0;
-let prevTs = 0;
-const loop = (ts: number = 0) => {
-  if (ts - prevTs > 150) {
-    if (currentFrame <= 8) {
-      renderSprite(currentFrame);
-      currentFrame++;
-    } else {
-      currentFrame = 0;
-    }
+// root.appendChild(canvas);
 
-    prevTs = ts;
-  }
+// const renderSprite = (frame: number) => {
+//   ctx?.clearRect(0, 0, canvasSize.w, canvasSize.h);
+//   ctx?.drawImage(
+//     idleSpriteSheet,
+//     0,
+//     frame * spriteSize.h,
+//     spriteSize.w,
+//     spriteSize.h,
+//     0,
+//     0,
+//     canvasSize.w,
+//     canvasSize.h
+//   );
+// };
+// let currentFrame = 0;
+// let prevTs = 0;
+// const loop = (ts: number = 0) => {
+//   if (ts - prevTs > 150) {
+//     if (currentFrame <= 8) {
+//       renderSprite(currentFrame);
+//       currentFrame++;
+//     } else {
+//       currentFrame = 0;
+//     }
 
-  window.requestAnimationFrame(loop);
-};
+//     prevTs = ts;
+//   }
 
-loop();
+//   window.requestAnimationFrame(loop);
+// };
+
+// loop();
