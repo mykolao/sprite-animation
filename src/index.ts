@@ -5,7 +5,7 @@ const spriteSize = {
   h: 124,
 };
 
-const canvasScale = 2.5;
+const canvasScale = 5;
 
 const canvasSize = {
   w: spriteSize.w * canvasScale,
@@ -49,7 +49,7 @@ const loop = (ts: number = 0) => {
       renderSprite(currentFrame);
       currentFrame++;
     } else {
-      currentFrame = 1;
+      currentFrame = 0;
     }
 
     prevTs = ts;
