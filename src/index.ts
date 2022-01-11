@@ -1,17 +1,25 @@
 import idleSpriteImg from "./sprites/idle.png";
 
-const canvas = document.createElement("canvas");
-canvas.width = 119;
-canvas.height = 124;
-const ctx = canvas.getContext("2d");
-
-const idleSpriteSheet = document.createElement("img");
-idleSpriteSheet.src = idleSpriteImg;
-
 const spriteSize = {
   w: 119,
   h: 124,
 };
+
+const canvasScale = 2.5;
+
+const canvasSize = {
+  w: spriteSize.w * canvasScale,
+  h: spriteSize.h * canvasScale,
+};
+
+const canvas = document.createElement("canvas");
+canvas.width = canvasSize.w;
+canvas.height = canvasSize.h;
+const ctx = canvas.getContext("2d");
+ctx && (ctx.imageSmoothingEnabled = false);
+
+const idleSpriteSheet = document.createElement("img");
+idleSpriteSheet.src = idleSpriteImg;
 
 const root =
   document.querySelector(".root") ||
@@ -20,8 +28,7 @@ const root =
 root.appendChild(canvas);
 
 const renderSprite = (frame: number) => {
-  console.log(frame);
-  ctx?.clearRect(0, 0, 119, 124);
+  ctx?.clearRect(0, 0, canvasSize.w, canvasSize.h);
   ctx?.drawImage(
     idleSpriteSheet,
     0,
@@ -30,14 +37,14 @@ const renderSprite = (frame: number) => {
     spriteSize.h,
     0,
     0,
-    spriteSize.w,
-    spriteSize.h
+    canvasSize.w,
+    canvasSize.h
   );
 };
 let currentFrame = 0;
 let prevTs = 0;
 const loop = (ts: number = 0) => {
-  if (ts - prevTs > 100) {
+  if (ts - prevTs > 150) {
     if (currentFrame <= 8) {
       renderSprite(currentFrame);
       currentFrame++;
@@ -51,6 +58,4 @@ const loop = (ts: number = 0) => {
   window.requestAnimationFrame(loop);
 };
 
-idleSpriteSheet.onload = () => {
-  loop();
-};
+loop();
